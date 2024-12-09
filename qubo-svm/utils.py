@@ -86,4 +86,31 @@ def compute_metrics(SVM,alpha,data,t,b,N,validation_pts):
 
     return precision,recall,f_score,accuracy
 
+def compute_training_metrics(SVM,alpha,data,t,b,N,validation_pts):
+    tp, fp, tn, fn = 0, 0, 0, 0
+    for i in range(0, N):
+        predicted_cls = SVM.predict_class(data[i], alpha, b)
+        y_i = t[i]
+        if(y_i == 1):
+            if(predicted_cls > 0):
+                tp += 1
+            else:
+                fp += 1
+        else:
+            if(predicted_cls < 0):
+                tn += 1
+            else:
+                fn += 1
+    
+    # Print the results
+    print(f"Training True Positives (TP): {tp}")
+    print(f"Training False Positives (FP): {fp}")
+    print(f"Training True Negatives (TN): {tn}")
+    print(f"Training False Negatives (FN): {fn}")
 
+    precision = tp / (tp + fp)
+    recall = tp / (tp + fn)
+    f_score = tp/(tp + 1/2*(fp+fn))
+    accuracy = (tp + tn)/(tp+tn+fp+fn)
+
+    return precision,recall,f_score,accuracy

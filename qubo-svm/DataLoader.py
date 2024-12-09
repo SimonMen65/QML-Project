@@ -9,9 +9,12 @@ def load_data(data_file,N,validation_pts):
     for i in range(N+validation_pts):
         if(training_data[i][-1] == 0):
             training_data[i][-1] = -1
-
-    data = training_data[:N+validation_pts, :36]
+    print("original training data: ", training_data.shape)
+    n_components = 4
+    data = training_data[:N+validation_pts, :n_components]
     t = training_data[:N + validation_pts, -1]
+    print("Data shape: ", data.shape)
+    print("t shape: ", t.shape)
 
     # x_min, x_max = 1000, 0
     # y_min, y_max = 1000, 0

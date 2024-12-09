@@ -39,8 +39,12 @@ def main():
     
     if args['fig']: utils.plot_figure(_SVM,alpha,data,t,b,args['trainingPoints'],args['type'])
 
+
     precision,recall,f_score,accuracy = utils.compute_metrics(_SVM,alpha,data,t,b,args['trainingPoints'],args['validationPoints'])
     print(f'{precision=} {recall=} {f_score=} {accuracy=}')
+
+    train_pre, train_recall, train_f_score, train_acc = utils.compute_training_metrics(_SVM,alpha,data,t,b,args['trainingPoints'],args['validationPoints'])
+    print(f'{train_pre=} {train_recall=} {train_f_score=} {train_acc=}')
 
 if __name__ =='__main__':
     from svm import SVM
